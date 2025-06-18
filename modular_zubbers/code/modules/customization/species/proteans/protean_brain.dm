@@ -44,11 +44,12 @@
 
 /obj/item/organ/brain/protean/on_death(seconds_per_tick, times_fired)
 	. = ..()
-	if(owner.stat == DEAD && !dead)
-		to_chat(owner, span_red("Your fragile refactory withers away with your mass reduced to scraps. Someone will have to help you."))
-		dead = TRUE
-		qdel(owner.get_organ_slot(ORGAN_SLOT_STOMACH))
-		go_into_suit(TRUE)
+		if(ORGAN_SLOT_BRAIN)
+			if(owner.stat == DEAD && !dead)
+			to_chat(owner, span_red("Your fragile refactory withers away with your mass reduced to scraps. Someone will have to help you."))
+			dead = TRUE
+			qdel(owner.get_organ_slot(ORGAN_SLOT_STOMACH))
+			go_into_suit(TRUE)
 
 /obj/item/organ/brain/protean/proc/handle_refactory(obj/item/organ) // Slowly degrade
 	var/datum/species/protean/species = owner?.dna.species
